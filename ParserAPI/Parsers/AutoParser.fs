@@ -104,8 +104,10 @@ module AutoParser =
 
     let Parse company model = 
         let url = $"https://auto.ru/cars/{company}/{model}/all/"
-        let doc = HtmlDocument.Load(url)
-        let count = getCountPage doc
+        let doc = loadDocument(url)
+        let count = match doc with 
+                    | Some d -> getCountPage d 
+                    | None -> None 
         printfn "%A" count
         let pages = match count with
                     | Some count -> seq {for i in 2 .. count -> url + $"?page={i}"}

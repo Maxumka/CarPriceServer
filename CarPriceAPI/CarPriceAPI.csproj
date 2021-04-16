@@ -17,12 +17,6 @@
     <ProjectReference Include="..\Predictor\CarPricePredictor.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="CarPricePredictor">
-      <HintPath>CarPricePredictor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -17,10 +17,4 @@
     <ProjectReference Include="..\Predictor\CarPricePredictor.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="CarPricePredictor">
-      <HintPath>CarPricePredictor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

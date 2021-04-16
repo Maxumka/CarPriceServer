@@ -49,7 +49,7 @@ namespace CarBestDealsAPI.Controllers
             var carsBestDealDataModel = Predictor.GetBestDeals(carsJson);
             var finalCars = JsonSerializer.Deserialize<CarBestDealDataModel[]>(carsBestDealDataModel);
 
-           var historyModel = _mapper.Map<CarHistoryModel>(car);
+            var historyModel = _mapper.Map<CarHistoryModel>(car);
             historyModel.UserLogin = userLogin;
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
