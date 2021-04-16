@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using MiddlewareLibrary;
 using AutoMapper;
 using CarPriceAPI.Domains;
+using CSharpPredictorML.Model;
+using System.Text.Json;
 
 namespace CarPriceAPI.Controllers
 {
@@ -39,9 +41,11 @@ namespace CarPriceAPI.Controllers
 
             var car = _mapper.Map<Car>(carModel);
 
-            var cars = await _parserService.GetCars(car);          
+            var cars = await _parserService.GetCars(car);
 
-            var price = cars.Aggregate(-1000, (x, y) => x + y.Price);
+            string jsonString = JsonSerializer.Serialize(carModel);
+
+            var price = Predictor.PredictOnePrice(jsonString);
 
             var historyModel = _mapper.Map<CarHistoryModel>(car);
 

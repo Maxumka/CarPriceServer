@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using MiddlewareLibrary;
 using CarBestDealsAPI.Domains;
 using AutoMapper;
+using CSharpPredictorML.Model;
+using System.Text.Json;
 
 namespace CarBestDealsAPI.Controllers
 {
@@ -42,15 +44,17 @@ namespace CarBestDealsAPI.Controllers
             var car = _mapper.Map<Car>(carModel);
 
             var cars = await _parserService.GetCars(car);
+            var carsJson = JsonSerializer.Serialize(cars);
 
-            var carsBestDealDataModel = cars.Select(c => _mapper.Map<CarBestDealDataModel>(c));
+            var carsBestDealDataModel = Predictor.GetBestDeals(carsJson);
+            var finalCars = JsonSerializer.Deserialize<CarBestDealDataModel[]>(carsBestDealDataModel);
 
-            var historyModel = _mapper.Map<CarHistoryModel>(car);
+           var historyModel = _mapper.Map<CarHistoryModel>(car);
             historyModel.UserLogin = userLogin;
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(new Either<CarBestDealDataModel[], Error>(carsBestDealDataModel.ToArray(), null));
+            return new(new Either<CarBestDealDataModel[], Error>(finalCars, null));
         }
     }
 }
