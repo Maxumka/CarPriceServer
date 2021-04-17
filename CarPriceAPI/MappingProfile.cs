@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarPriceAPI.Domains;
 using CarPriceAPI.Models;
+using MiddlewareLibrary.Models;
 
 namespace CarPriceAPI
 {

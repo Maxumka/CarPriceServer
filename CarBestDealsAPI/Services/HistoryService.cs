@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
-using CarBestDealsAPI.Models;
+using MiddlewareLibrary.Models;
 using System.Threading.Tasks;
 
 namespace CarBestDealsAPI.Services

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarBestDealsAPI.Models;
 using System.Collections.Generic;
 using CarBestDealsAPI.Domains;
+using MiddlewareLibrary.Models;
 
 namespace CarBestDealsAPI.Services
 {
@@ -17,7 +18,7 @@ namespace CarBestDealsAPI.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<IEnumerable<Car>> GetCars(Car car)
+        public async Task<IEnumerable<Car>> GetCars(CarFormModel car)
         {
             IEnumerable<Car> cars = null;
 

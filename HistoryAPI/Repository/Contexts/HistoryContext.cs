@@ -18,8 +18,6 @@ namespace HistoryAPI.Repository.Contexts
             modelBuilder.Entity<CarHistory>().HasKey(c => c.Id);
             modelBuilder.Entity<CarHistory>().Property(c => c.Company);
             modelBuilder.Entity<CarHistory>().Property(c => c.Model);
-            modelBuilder.Entity<CarHistory>().Property(c => c.Year);
-            modelBuilder.Entity<CarHistory>().Property(c => c.Price);
             modelBuilder.Entity<CarHistory>().Property(c => c.UserLogin);
             modelBuilder.Entity<CarHistory>().Property(c => c.Action);
         }

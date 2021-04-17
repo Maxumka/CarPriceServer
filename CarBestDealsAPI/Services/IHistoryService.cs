@@ -1,4 +1,4 @@
-﻿using CarBestDealsAPI.Models;
+﻿using MiddlewareLibrary.Models;
 using System.Threading.Tasks;
 
 namespace CarBestDealsAPI.Services

@@ -10,6 +10,7 @@ using AutoMapper;
 using CarPriceAPI.Domains;
 using CSharpPredictorML.Model;
 using System.Text.Json;
+using MiddlewareLibrary.Models;
 
 namespace CarPriceAPI.Controllers
 {
@@ -41,16 +42,13 @@ namespace CarPriceAPI.Controllers
 
             var car = _mapper.Map<Car>(carModel);
 
-            var cars = await _parserService.GetCars(car);
-
             string jsonString = JsonSerializer.Serialize(carModel);
 
             var price = Predictor.PredictOnePrice(jsonString);
 
             var historyModel = _mapper.Map<CarHistoryModel>(car);
-
             historyModel.UserLogin = userLogin;
-            historyModel.Price = price;
+            historyModel.Action = "Рассчитать стоимость автомобиля на основе объявлений об автомобилях";
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 

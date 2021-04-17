@@ -1,4 +1,5 @@
 ﻿using CarPriceAPI.Models;
+using MiddlewareLibrary.Models;
 using System.Threading.Tasks;
 
 namespace CarPriceAPI.Services

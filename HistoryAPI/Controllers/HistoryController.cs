@@ -1,5 +1,4 @@
-﻿using HistoryAPI.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HistoryAPI.Domain.Entities;
 using HistoryAPI.Domain.Interfaces;
@@ -9,6 +8,7 @@ using HistoryAPI.Repository.Implementations;
 using System.Linq;
 using MiddlewareLibrary;
 using AutoMapper;
+using MiddlewareLibrary.Models;
 
 namespace HistoryAPI.Controllers
 {

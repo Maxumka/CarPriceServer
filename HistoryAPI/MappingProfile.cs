@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HistoryAPI.Domain.Entities;
-using HistoryAPI.Models;
+using MiddlewareLibrary.Models;
 
 namespace HistoryAPI
 {

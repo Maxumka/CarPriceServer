@@ -59,7 +59,7 @@ module AutoParser =
         TryParseIntOption(power)
 
     let private parseVolume (value: string) = 
-        let volume = value.[0..3].Replace('.', ',')
+        let volume = value.[0..3]
         TryParseDoubleOption(volume)
 
     let private conditionCheck<'a when 'a : comparison> (value : 'a option) (condition : 'a option * 'a option) = 
@@ -68,10 +68,11 @@ module AutoParser =
         | None   -> value
         | Some v -> 
             match (from, ``to``) with 
-            | None, None                           -> value
-            | (Some from, None) when v >= from     -> value 
-            | (None, Some ``to``) when v <= ``to`` -> value
-            | _                                    -> None
+            | None, None                                             -> value
+            | (Some from, None) when v >= from                       -> value 
+            | (None, Some ``to``) when v <= ``to``                   -> value
+            | (Some from, Some ``to``) when v >= from && v <= ``to`` -> value
+            | _                                                      -> None
 
     let private parseDescriptionCar(node: HtmlNode) (car : CarFormModel) = 
         let conditions = Conditions.FromCarFromModel car

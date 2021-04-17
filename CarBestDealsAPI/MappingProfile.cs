@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarBestDealsAPI.Domains;
 using CarBestDealsAPI.Models;
+using MiddlewareLibrary.Models;
 
 namespace CarBestDealsAPI
 {
@@ -10,7 +11,7 @@ namespace CarBestDealsAPI
         {
             CreateMap<CarBestDealFormModel, Car>();
             CreateMap<Car, CarBestDealDataModel>();
-            CreateMap<Car, CarHistoryModel>();
+            CreateMap<CarFormModel, CarHistoryModel>();
         }
     }
 }

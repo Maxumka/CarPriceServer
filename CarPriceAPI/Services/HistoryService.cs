@@ -3,6 +3,7 @@ using System.Net.Http;
 using CarPriceAPI.Models;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using MiddlewareLibrary.Models;
 
 namespace CarPriceAPI.Services
 {
