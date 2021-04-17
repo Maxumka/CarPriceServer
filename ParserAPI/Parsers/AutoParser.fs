@@ -1,11 +1,11 @@
 ﻿namespace ParserAPI.Parsers
 
+open System
 open ParserAPI.Models
 open ParserAPI.HelperTryParse
 open FSharp.Data
 open FSharp.Collections.ParallelSeq
-open System.Collections.Concurrent
-open System.Threading.Tasks
+open MiddlewareLibrary.Models
 
 module AutoParser =
     [<Literal>]
@@ -62,26 +62,39 @@ module AutoParser =
         let volume = value.[0..3].Replace('.', ',')
         TryParseDoubleOption(volume)
 
-    let private parseDescriptionCar(node: HtmlNode) company model = 
-        let year = parseInt (defaultParse node yearClass)
-        let price = parseInt (defaultParse node priceClass)
-        let mileage = parseMileage (defaultParse node mileageClass)
+    let private conditionCheck<'a when 'a : comparison> (value : 'a option) (condition : 'a option * 'a option) = 
+        let (from, ``to``) = condition
+        match value with 
+        | None   -> value
+        | Some v -> 
+            match (from, ``to``) with 
+            | None, None                           -> value
+            | (Some from, None) when v >= from     -> value 
+            | (None, Some ``to``) when v <= ``to`` -> value
+            | _                                    -> None
+
+    let private parseDescriptionCar(node: HtmlNode) (car : CarFormModel) = 
+        let conditions = Conditions.FromCarFromModel car
+        let year = conditionCheck (parseInt (defaultParse node yearClass)) (conditions.fromYear, conditions.toYear)
+        let price = conditionCheck (parseInt (defaultParse node priceClass)) (conditions.fromPrice, conditions.toPrice)
+        let mileage = conditionCheck (parseMileage (defaultParse node mileageClass)) (conditions.fromMileage, conditions.toMileage)
         let link = parseLink node linkClass
         let power, volume, transmission = 
             match (parseTransmissionPowerVolume node) with
             | Some (x, y) -> parsePower x, parseVolume x, Some (parseTransmission y)
             | None -> None, None, None
-
-        match (year, price, mileage, transmission, power, volume, link) with 
-        | (Some y, Some pr, Some m, Some t, Some po, Some v, Some l) -> Some {Company = company; Model = model; Mileage = m; 
+        let maybePower = conditionCheck power (conditions.fromPower, conditions.toPower)
+        let maybeVolume = conditionCheck volume (conditions.fromVolume, conditions.toVolume)
+        match (year, price, mileage, transmission, maybePower, maybeVolume, link) with 
+        | (Some y, Some pr, Some m, Some t, Some po, Some v, Some l) -> Some {Company = car.Company; Model = car.Model; Mileage = m; 
                                                                               EnginePower = po; EngineVolume = v; Year = y; 
                                                                               Transmission = t; Price = pr; Link = l}
         | _ -> None
 
-    let private parseCarDoc company model (doc: HtmlDocument) = 
+    let private parseCarDoc (car : CarFormModel) (doc: HtmlDocument) = 
         doc.Descendants()
         |> Seq.filter (fun x -> x.HasClass(descriptionClass))
-        |> Seq.map (fun x -> parseDescriptionCar x company model)
+        |> Seq.map (fun x -> parseDescriptionCar x car)
 
     let private getCountPage (doc: HtmlDocument) = 
         let maybeCountPage = doc.Descendants()
@@ -102,8 +115,8 @@ module AutoParser =
         with _ -> printfn "%s" url 
                   None
 
-    let Parse company model = 
-        let url = $"https://auto.ru/cars/{company}/{model}/all/"
+    let Parse (car : CarFormModel) = 
+        let url = $"https://auto.ru/cars/{car.Company}/{car.Model}/all/"
         let doc = loadDocument(url)
         let count = match doc with 
                     | Some d -> getCountPage d 
@@ -112,11 +125,11 @@ module AutoParser =
         let pages = match count with
                     | Some count -> seq {for i in 2 .. count -> url + $"?page={i}"}
                     | None -> Seq.empty
-              
+        
         pages
         |> PSeq.map loadDocument
         |> PSeq.filter (fun x -> x.IsSome)
         |> PSeq.map (fun x -> x.Value)
-        |> PSeq.collect (fun x -> parseCarDoc company model x)
+        |> PSeq.collect (fun x -> parseCarDoc car x)
         |> PSeq.filter (fun x -> x.IsSome)
         |> PSeq.map (fun x -> x.Value)

@@ -3,6 +3,7 @@
 open Microsoft.AspNetCore.Mvc
 open ParserAPI.Models
 open ParserAPI.Parsers
+open MiddlewareLibrary.Models
 
 [<ApiController>]
 [<Route("api/[controller]")>]
@@ -13,6 +14,6 @@ type ParserController() =
     member _.Get() = JsonResult("Hi, How Are You")
 
     [<HttpPost>]
-    member _.Post(car: CarModel) : JsonResult = 
-        let cars = AutoParser.Parse car.Company car.Model
+    member _.Post(car: CarFormModel) : JsonResult = 
+        let cars = AutoParser.Parse car
         JsonResult(cars)
