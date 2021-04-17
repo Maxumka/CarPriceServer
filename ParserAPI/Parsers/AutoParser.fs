@@ -74,6 +74,15 @@ module AutoParser =
             | (Some from, Some ``to``) when v >= from && v <= ``to`` -> value
             | _                                                      -> None
 
+    let private checkTranmission (mt : bool option) (tranmission : Transmission) = 
+        match mt with 
+        | None   -> mt 
+        | Some t -> match (t, tranmission) with 
+                    | _, Transmission.Any          -> mt 
+                    | true, Transmission.Automatic -> mt 
+                    | false, Transmission.Mechanic -> mt 
+                    | _                            -> None
+
     let private parseDescriptionCar(node: HtmlNode) (car : CarFormModel) = 
         let conditions = Conditions.FromCarFromModel car
         let year = conditionCheck (parseInt (defaultParse node yearClass)) (conditions.fromYear, conditions.toYear)
@@ -86,7 +95,8 @@ module AutoParser =
             | None -> None, None, None
         let maybePower = conditionCheck power (conditions.fromPower, conditions.toPower)
         let maybeVolume = conditionCheck volume (conditions.fromVolume, conditions.toVolume)
-        match (year, price, mileage, transmission, maybePower, maybeVolume, link) with 
+        let mt = checkTranmission transmission car.Transmission
+        match (year, price, mileage, mt, maybePower, maybeVolume, link) with 
         | (Some y, Some pr, Some m, Some t, Some po, Some v, Some l) -> Some {Company = car.Company; Model = car.Model; Mileage = m; 
                                                                               EnginePower = po; EngineVolume = v; Year = y; 
                                                                               Transmission = t; Price = pr; Link = l}
