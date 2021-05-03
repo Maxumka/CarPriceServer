@@ -14,10 +14,14 @@ namespace IdentityAPI.Repository.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("public");
+
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>().HasKey(u => u.Id);
             modelBuilder.Entity<User>().Property(u => u.Login);
             modelBuilder.Entity<User>().Property(u => u.Password);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
