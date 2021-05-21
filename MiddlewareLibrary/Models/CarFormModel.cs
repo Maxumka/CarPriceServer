@@ -8,6 +8,40 @@ namespace MiddlewareLibrary.Models
         Mechanic
     }
 
+    public enum Engine
+    {
+        Any,
+        Gasoline, 
+        Diesel,
+        Hybrid,
+        Electric
+    }
+
+    public enum Gear
+    {
+        Any,
+        Forward,
+        Back,
+        All 
+    }
+
+    public enum SteeringWheel
+    {
+        Any,
+        Left,
+        Right
+    }
+
+    public enum CarBody 
+    {
+        Any,
+        Sedan,
+        Hatchback,
+        Coupe,
+        Pickup,
+        Convertible
+    }
+
     public class CarFormModel
     {
         public string Company { get; set; }
@@ -35,5 +69,13 @@ namespace MiddlewareLibrary.Models
         public int? ToPrice { get; set; }
 
         public Transmission Transmission { get; set; }
+
+        public Engine Engine { get; set; }
+
+        public Gear Gear { get; set; }
+
+        public SteeringWheel SteeringWheel { get; set; }
+
+        public CarBody CarBody { get; set; }
     }
 }
