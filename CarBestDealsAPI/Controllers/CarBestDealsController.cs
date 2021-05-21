@@ -34,12 +34,18 @@ namespace CarBestDealsAPI.Controllers
             _mapper = mapper;
         }
 
+        private double? MulOneHundred(double? x) => x.HasValue ? x * 1000 : x;
+
         [HttpPost]
         [Authorize]
         public async Task<JsonResult> GetCarBestDeals(CarFormModel carModel)
         {
             if (carModel is null) return new(new Either<Car[], Error>(null, Errors.CarWasNull));
 
+            // Это костыль, может быть когда-нить я его исправлю, не думаю 
+            carModel.FromEngineVolume = MulOneHundred(carModel.FromEngineVolume);
+            carModel.ToEngineVolume = MulOneHundred(carModel.ToEngineVolume);
+            
             var userLogin = HttpContext.User.Identity.Name;
 
             var cars = await _parserService.GetCars(carModel);
