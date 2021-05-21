@@ -10,10 +10,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/CarBestDealsAPI",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -30,10 +26,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/CarPriceAPI",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -50,10 +42,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/HistoryAPI",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -71,10 +59,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/IdentityAPI",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -92,10 +76,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/OcelotApiGateway",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -113,10 +93,6 @@
             "args": [],
             "cwd": "${workspaceFolder}/ParserAPI",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -124,13 +100,6 @@
                 "/Views": "${workspaceFolder}/Views"
             }
         },
-
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
-        }
     ],
     "compounds": [
         {

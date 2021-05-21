@@ -59,7 +59,8 @@ namespace HistoryAPI
 
             services.AddControllers();
 
-            services.AddDbContext<HistoryContext>(o => o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<HistoryContext>(o 
+                => o.UseNpgsql("Server=localhost;Port=5432;Database=CarPriceServerHistoryDb;Username=postgres;Password=1;"));
 
             services.AddSwaggerGen(c =>
             {
