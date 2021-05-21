@@ -1,7 +1,6 @@
 ﻿namespace ParserAPI.Controllers
 
 open Microsoft.AspNetCore.Mvc
-open ParserAPI.Models
 open ParserAPI.Parsers
 open MiddlewareLibrary.Models
 
@@ -15,5 +14,6 @@ type ParserController() =
 
     [<HttpPost>]
     member _.Post(car: CarFormModel) : JsonResult = 
-        let cars = AutoParser.Parse car
+        let cars = AutoParser.Parse car 
+
         JsonResult(cars)
