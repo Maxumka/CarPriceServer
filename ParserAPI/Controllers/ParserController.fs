@@ -10,10 +10,11 @@ type ParserController() =
     inherit ControllerBase()
     
     [<HttpGet>]
-    member _.Get() = JsonResult("Hi, How Are You")
+    member _.Get() : JsonResult = 
+        let cars = CarMarkTypeParser.Parse
+        JsonResult(cars)
 
     [<HttpPost>]
     member _.Post(car: CarFormModel) : JsonResult = 
         let cars = AutoParser.Parse car 
-
         JsonResult(cars)

@@ -39,12 +39,16 @@ module Models =
                                 
                             
 
-    type CarModel = {Company: string; 
-                     Model: string; 
-                     Mileage: int; 
-                     EnginePower: int; 
-                     EngineVolume: double; 
-                     Year: int; 
-                     Transmission: bool; 
-                     Link: string;
-                     Price: int}
+    type Car = {Company: string; 
+                Model: string; 
+                Mileage: int; 
+                EnginePower: int; 
+                EngineVolume: double; 
+                Year: int; 
+                Transmission: bool; 
+                Link: string;
+                Price: int}
+
+    type CarTypeModel = {Name : string; Link : string}
+
+    type CarMarkModel = {Name : string; TypeModels : CarTypeModel list}
