@@ -80,6 +80,20 @@
         "AuthenticationProviderKey": "TestKey",
         "AllowedScopes": []
       }
+    },
+
+    //CarMarkTypeAPI
+    {
+      "DownstreamPathTemplate": "/api/carmarktype",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7006
+        }
+      ],
+      "UpstreamPathTemplate": "/carmarktype",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {
