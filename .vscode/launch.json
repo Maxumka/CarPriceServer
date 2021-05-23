@@ -100,6 +100,23 @@
                 "/Views": "${workspaceFolder}/Views"
             }
         },
+
+        {
+            "name": "CarMarkTypeAPI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/CarMarkTypeAPI/bin/Debug/net5.0/CarMarkTypeAPI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/CarMarkTypeAPI",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
     ],
     "compounds": [
         {
@@ -110,7 +127,8 @@
                 "HistoryAPI",
                 "IdentityAPI",
                 "OcelotApiGateway",
-                "ParserAPI"
+                "ParserAPI",
+                "CarMarkTypeAPI"
             ]
         }
     ]
