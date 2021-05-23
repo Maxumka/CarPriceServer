@@ -183,7 +183,7 @@ module AutoParser =
 
     let private buildLink (car : CarFormModel) = 
         let urlBuilder = new StringBuilder() 
-        urlBuilder += Some $"https://auto.ru/cars/{car.Company}/{car.Model}/all/?"
+        urlBuilder += Some $"{car.Link}"
         let conditions = Conditions.FromCarFromModel car      
         let url = buildUrl urlBuilder conditions
         printfn "%s" url 
