@@ -48,6 +48,8 @@ namespace MiddlewareLibrary.Models
 
         public string Model { get; set; }
 
+        public string Link { get; set; }
+
         public int? FromMileage { get; set; }
 
         public int? ToMileage { get; set; }
